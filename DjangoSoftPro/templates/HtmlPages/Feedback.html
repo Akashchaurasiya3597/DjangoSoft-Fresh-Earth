@@ -1,0 +1,74 @@
+{% extends 'HtmlPages/base.html' %}
+{% load static %}
+<html>
+<head>
+    <title>DjangoSoft</title>
+</head>
+<body>
+{% block menu %}
+
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Shop</a>
+                            <ul class="dropdown-menu">
+								<li><a href="{% url 'shop_Vegetable' %}">shop Vegetable</a></li>
+                                <li><a href="{% url 'shop_Fruit' %}">shop Fruit</a></li>
+                                <li><a href="{% url 'WishList' %}">Wishlist</a></li>
+                                <li><a href="{% url 'cart' %}">Cart</a></li>
+                                <li><a href="{% url 'Checkout' %}">Checkout</a></li>
+                                <li><a href="{% url 'MyAccount' %}">My Account</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'feedback' %}">FeedBack</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
+{% endblock %}
+
+
+{% block content %}
+    <style>
+    .container1{
+
+        padding: 10px;
+
+
+    }
+
+    </style>
+
+<div class="container1">
+    <div class="row">
+        <div class="offset-md-2 col-md-8" style="border:  1px #b0b435 solid ">
+            {% if Ffeedback %}
+                <h1 style="color: #b0b435">Feedback are..</h1>
+                {% for i in Ffeedback %}
+                    <label style="color: #b0b435">Name: </label>{{ i.name|capfirst }}<br>
+                    <label style="color: #b0b435">Ratting: </label>{{ i.ratting }}<br>
+                    <label style="color: #b0b435">Date: </label>{{ i.Date }}<br>
+                    <label style="color: #b0b435">Feedback: </label>{{ i.Feedback }}<br><br>
+                {% endfor %}
+             {% else %}
+                <h2 style="color: #b0b435">Feedback data is Not available</h2>
+            {% endif %}
+            <form method="POST">
+            {% csrf_token %}
+            {{ Fform }}
+            <div class="submit-button text-center">
+            <button class="btn hvr-hover" id="submit" type="submit">Submit</button>
+            <button class="btn hvr-hover" id="reset" type="reset">Clear</button>
+            <div id="msgSubmit" class="h3 text-center hidden"></div>
+            <div class="clearfix"></div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+</body>
+</html>
